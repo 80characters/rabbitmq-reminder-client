@@ -1,0 +1,20 @@
+@import "bemify";
+@import "../../../variables.scss";
+
+::ng-deep {
+  @include block("header") {
+    @include modifier("centered") {
+       padding: 25px 0;    
+       background-color: $bgColor;
+    }
+  }
+
+  @include block("site") {
+      @include child("name") {
+          font-family: $headingFont;
+          font-size: 36px;
+          margin: 0;
+          color: $dark;
+      }
+  }
+}

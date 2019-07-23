@@ -1,0 +1,19 @@
+@import "bemify";
+@import "../../../variables.scss";
+
+::ng-deep {
+  @include block("footer") {
+    @include modifier("centered") {
+      padding: 10px 0;
+      background-color: $dark;
+    }
+  }
+
+  @include block("site") {
+    @include child("footer") {
+        margin: 0;
+        padding: 0;
+        color: $light;
+    }
+  }
+}
