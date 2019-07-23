@@ -1,0 +1,40 @@
+@import "bemify";
+@import "../../../../variables.scss";
+
+::ng-deep {
+  @include block("tasks") {
+    @include modifier("list") {
+      list-style: none;
+      padding-left: 0;
+      @include child("item") {
+        margin: 5px 0 10px 0;
+        padding: 5px;
+        border: 1px solid #dedede;
+        position: relative;
+        background: $light;
+
+        &:after {
+          display: block;
+          position: absolute;
+          content: "";
+          width: 100%;
+          height: 100%;
+          right: -3px;
+          bottom: -3px;
+          border: 1px solid #dedede;
+          background: $light;
+          z-index: -1;
+        }
+      }
+    }
+  }
+
+  @include block("task") {
+    @include modifier("bordered") {
+      @include child("checkbox") {
+      }
+      @include child("title") {
+      }
+    }
+  }
+}

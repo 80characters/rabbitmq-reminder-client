@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Crimson+Text&display=swap');
 
 body {
-  background: #fff;
+  background: $light;
   margin: 0;
   padding: 0;
   font-size: 15px;
@@ -31,7 +31,8 @@ a{
 @include block("site") {
   @include child("main") {
     margin: 0;
-    padding: 50px 25px;
+    padding: 50px 0;
+    min-height: 745px;
   }
 }
 
