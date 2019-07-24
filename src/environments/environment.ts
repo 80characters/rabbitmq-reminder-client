@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  auth0: {
+    uri: 'https://80chars.auth0.com/oauth/token',
+    config: {
+      client_id: 'TbhzLaNzj12ZMUAOze3TRrmE6mHYrS57',
+      client_secret: 'QNeft6IeXuOGZstM9zbGoq0yEpevr0IfHYD2QXDgVXZAewd-J6Kyqpt5fV0I1HKW',
+      audience: 'localhost',
+      grant_type: 'client_credentials'
+    }
+  }
 };
 
 /*

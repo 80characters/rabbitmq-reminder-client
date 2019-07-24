@@ -10,13 +10,14 @@ import { FetchService } from 'src/app/services/data/fetch.service';
 export class ListComponent implements OnInit {
   tasks: Task[];
 
-  constructor(private readonly fetchService: FetchService) {
-    this.fetchService.getAll().subscribe(tasks => {
-      this.tasks = tasks;
-    });
-  }
+  constructor(private readonly fetchService: FetchService) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.fetchService.getAll().subscribe(tasks => {
+        this.tasks = tasks;
+      });
+    }, 3000);
   }
 
 }
