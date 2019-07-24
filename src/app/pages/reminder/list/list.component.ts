@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TASKS } from 'mock/mock-tasks';
+import { Task } from 'src/app/entities/task';
+import { FetchService } from 'src/app/services/data/fetch.service';
 
 @Component({
   selector: 'app-list',
@@ -7,10 +8,13 @@ import { TASKS } from 'mock/mock-tasks';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  tasks: Task[];
 
-  tasks = TASKS;
-
-  constructor() { }
+  constructor(private readonly fetchService: FetchService) {
+    this.fetchService.getAll().subscribe(tasks => {
+      this.tasks = tasks;
+    });
+  }
 
   ngOnInit() {
   }

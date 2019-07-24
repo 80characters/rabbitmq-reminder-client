@@ -7,8 +7,8 @@
         <input type="checkbox" class="task--bordered__checkbox">
 
         <span class="task--bordered__title is-avaiable" *ngIf="!task.complete; else taskCompleted">{{task.title}}</span>
-        
-        <ng-template #taskCompleted>        
+
+        <ng-template #taskCompleted>
             <del class="task--bordered__title is-completed">{{task.title}}</del>
         </ng-template>
     </li>
