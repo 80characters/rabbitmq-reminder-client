@@ -43,8 +43,6 @@ export class AuthService {
       });
     }
 
-    console.log(this.auth0Client);
-
     return this.auth0Client;
   }
 }

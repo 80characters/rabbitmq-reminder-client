@@ -13,13 +13,11 @@ export class ListComponent implements OnInit {
   constructor(private readonly fetchService: FetchService) { }
 
   ngOnInit() {
-    async function ping(s: FetchService) {
-      const response = await s.getAll();
-      const responseJson = JSON.stringify(response, null, 2).trim();
-      return JSON.parse(responseJson);
+    async function fill(s: FetchService) {
+      return await s.getAll();
     }
 
-    ping(this.fetchService).then(tasks => this.tasks = tasks).catch(err => console.log(err));
+    fill(this.fetchService).then(tasks => this.tasks = tasks).catch(err => console.log(err));
   }
 
 }
