@@ -13,11 +13,9 @@ export class ListComponent implements OnInit {
   constructor(private readonly fetchService: FetchService) { }
 
   ngOnInit() {
-    setTimeout(() => {
       this.fetchService.getAll().subscribe(tasks => {
         this.tasks = tasks;
       });
-    }, 3000);
   }
 
 }

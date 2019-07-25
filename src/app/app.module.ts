@@ -9,6 +9,8 @@ import { AddComponent } from './pages/reminder/add/add.component';
 import { ServicesModule } from './services/services.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { LoginComponent } from './shared/login/login.component';
+import { LogoutComponent } from './shared/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
     HeaderComponent,
     FooterComponent,
     ListComponent,
-    AddComponent
+    AddComponent,
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
