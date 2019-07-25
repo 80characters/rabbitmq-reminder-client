@@ -3,5 +3,14 @@ $mainColor: #e65100;
 $light: #fff;
 $dark: #222;
 
-$headingFont: 'Abril Fatface', cursive;
-$paragraphFont: 'Crimson Text', serif;
+$headingFont: "Abril Fatface", cursive;
+$paragraphFont: "Crimson Text", serif;
+
+// MIXINS.
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

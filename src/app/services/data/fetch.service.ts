@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Task } from 'src/app/entities/task';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FetchService {
-  private getAllUrl = 'http://localhost:3000/api/v1/tasks/';
+  constructor(private readonly http: HttpClient, private readonly authService: AuthService) { }
 
-  constructor(private readonly http: HttpClient) { }
+  async getAll(): Promise<any> {
+    const client = await this.authService.getAuth0Client();
+    const token = await client.getTokenSilently();
 
-  getAll(): Observable<Task[]> {
-    console.log('[Observable] get task list.');
-    return this.http.get<Task[]>(this.getAllUrl);
+    return this.http
+      .get('http://localhost:3000/api/v1/tasks/', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .toPromise();
   }
 }

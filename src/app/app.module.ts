@@ -7,10 +7,9 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { ListComponent } from './pages/reminder/list/list.component';
 import { AddComponent } from './pages/reminder/add/add.component';
 import { ServicesModule } from './services/services.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './interceptor/token.interceptor';
-import { LoginComponent } from './shared/login/login.component';
-import { LogoutComponent } from './shared/logout/logout.component';
+import { CallbackComponent } from './pages/auth/callback/callback.component';
+import { ProfileComponent } from './pages/user/profile/profile.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +18,9 @@ import { LogoutComponent } from './shared/logout/logout.component';
     FooterComponent,
     ListComponent,
     AddComponent,
-    LoginComponent,
-    LogoutComponent
+    CallbackComponent,
+    ProfileComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -28,11 +28,6 @@ import { LogoutComponent } from './shared/logout/logout.component';
     ServicesModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,51 +1,50 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Token } from 'src/app/entities/token';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import createAuth0Client from '@auth0/auth0-spa-js';
+import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private readonly http: HttpClient) { }
+  isAuthenticated = new BehaviorSubject(false);
+  profile = new BehaviorSubject<any>(null);
 
-  saveTokenAsKey = 'auth0-access_token';
+  private auth0Client: Auth0Client;
 
-  getToken(): string {
-    let accessToken = localStorage.getItem(this.saveTokenAsKey);
+  // Auth0 application configuration
+  config = {
+    domain: environment.auth0.domain,
+    client_id: environment.auth0.config.client_id,
+    redirect_uri: `${window.location.origin}/callback`,
+    audience: environment.auth0.config.audience,
+  };
 
-    if (!this._tokenNotExpired(accessToken)) {
-      this._refreshToken().subscribe((token: Token) => {
-        console.log('[Observable] refresh token.');
+  /**
+   * Gets the Auth0Client instance.
+   */
+  async getAuth0Client(): Promise<Auth0Client> {
+    if (!this.auth0Client) {
+      this.auth0Client = await createAuth0Client(this.config);
 
-        if (token.access_token) {
-          accessToken = token.access_token;
-          localStorage.setItem(this.saveTokenAsKey, token.access_token);
+      // Provide the current value of isAuthenticated
+      this.isAuthenticated.next(await this.auth0Client.isAuthenticated());
+
+      // Whenever isAuthenticated changes, provide the current value of `getUser`
+      this.isAuthenticated.subscribe(async isAuthenticated => {
+
+        if (isAuthenticated) {
+          this.profile.next(await this.auth0Client.getUser());
+          return;
         }
+
+        this.profile.next(null);
       });
     }
 
-    return accessToken;
-  }
+    console.log(this.auth0Client);
 
-  private _refreshToken(): Observable<Token> {
-    return this.http.post<Token>(
-      environment.auth0.uri,
-      environment.auth0.config,
-      {
-        headers: new HttpHeaders({ 'content-type': 'application/json' })
-      }
-    );
-  }
-
-  private _tokenNotExpired(token) {
-    if (token) {
-      const jwtHelper = new JwtHelperService();
-      return token != null && !jwtHelper.isTokenExpired(token);
-    } else {
-      return false;
-    }
+    return this.auth0Client;
   }
 }

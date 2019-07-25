@@ -1,5 +1,33 @@
 <header class="header header--centered">
     <div class="container container--md">
-        <h1 class="site__name">Reminder</h1>
+        <div class="header--centered__col is-left">
+            <h1 class="site__name">Reminder</h1>
+        </div>
+
+        <div class="header--centered__col is-right">
+            <nav class="clearfix nav--primary">
+                <ul class="nav--primary__menu menu menu--dashed">
+                    <li class="menu--dashed__item">
+                        <a (click)="login()" *ngIf="!isAuthenticated" class="menu--dashed__item__link">Log In</a>
+                        <a (click)="logout()" *ngIf="isAuthenticated" class="menu--dashed__item__link">Log Out</a>
+                    </li>
+                    <li class="menu--dashed__item is-separator">/</li>
+
+                    <li *ngIf="isAuthenticated" class="menu--dashed__item">
+                        <a class="menu--dashed__item__link" [routerLink]="['list']">Tasks</a>
+                    </li>
+                    <li *ngIf="isAuthenticated" class="menu--dashed__item is-separator">/</li>
+
+                    <li *ngIf="isAuthenticated" class="menu--dashed__item">
+                        <a class="menu--dashed__item__link" [routerLink]="['profile']">Profile</a>
+                    </li>
+                    <li *ngIf="isAuthenticated" class="menu--dashed__item is-separator">/</li>
+
+                    <li class="menu--dashed__item">
+                        <a class="menu--dashed__item__link" [routerLink]="['']">Home</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </header>
